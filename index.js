@@ -4,10 +4,18 @@ const authRoute = require('./routes/routes/auth')
 const db = require('./config/db')
 
 
-
 app.use(express.json())
-    // app.use(express.urlencoded({ extended: true }))
+app.use(express.urlencoded({ extended: true }))
 app.use('/api/auth', authRoute);
+
+app.set('view engine', 'ejs')
+
+app.use('/login', (req, res) => {
+    res.render('login.ejs')
+})
+app.use('/register', (req, res) => {
+    res.render('register.ejs')
+})
 
 
 
