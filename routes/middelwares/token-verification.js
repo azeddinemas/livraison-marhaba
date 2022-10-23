@@ -8,9 +8,10 @@ function verif(access) {
     return (req, res, next) => {
         if (ls('token')) {
             const verif = jwt.verify(ls('token'), process.env.SECRET)
+
             if (verif) {
-                req.payload = verif
-                if (access.includes(req.payload.payload.name)) {
+                // req.payload = verif
+                if (access.includes(verif.data.role)) {
                     next()
                 } else {
                     res.send('access denied')
@@ -21,5 +22,10 @@ function verif(access) {
         } else { res.send('not authent') }
     }
 }
+
+
+
+
+
 
 module.exports = { verif }
