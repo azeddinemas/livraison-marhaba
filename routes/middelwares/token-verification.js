@@ -8,9 +8,7 @@ function verif(access) {
     return (req, res, next) => {
         if (ls('token')) {
             const verif = jwt.verify(ls('token'), process.env.SECRET)
-
             if (verif) {
-                // req.payload = verif
                 if (access.includes(verif.data.role)) {
                     next()
                 } else {
@@ -22,9 +20,6 @@ function verif(access) {
         } else { res.send('not authent') }
     }
 }
-
-
-
 
 
 

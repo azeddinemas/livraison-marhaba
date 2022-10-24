@@ -29,26 +29,13 @@ const main = () => {
 }
 
 function conform(req, res) {
-    const { token } = req.params
+    const token = req.params.token
     const eml = jwt.verify(token, process.env.SECRET)
-    req.email = eml
-    user.findOneAndUpdate({ email: req.email.email }, { confirmed: true }).then((req, res) => {
+    user.findOneAndUpdate({ email: eml.email }, { confirmed: true }).then((req, res) => {
         console.log('confirmed')
-    }).catch((req, res) => {
+    }).catch(() => {
         console.log('not confirmed')
     })
 }
 
-// function confirm(req,res){
-//   const tkn=jwt.verify(req.params.email_token,process.env.SECRET)
-//   req.email=tkn
-//   User.findOneAndUpdate({email:req.email.email},{confirmation:true}).then(()=>{
-//     res.render('errorview',{data:{
-//         msg:"comfirmed!!",
-//         statu:'confirmation',
-//         class:'bg-success'
-//     }})
-//   })
-
-// }
 module.exports = { main, conform }

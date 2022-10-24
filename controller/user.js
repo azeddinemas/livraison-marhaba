@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken')
 const ls = require('local-storage')
 const dotenv = require('dotenv');
-const mail = require('./nodmailer')
+const mailer = require('./nodmailer')
 
 
 const register = (req, res) => {
@@ -12,7 +12,7 @@ const register = (req, res) => {
     User.findOne({ email: body.email }).then((data) => {
         if (!data) {
             ls('email', body.email)
-            mail.main()
+            mailer.main()
             bcrypt.hash(body.password, 10).then((e) => {
                 if (e) {
                     body.password = e
@@ -60,6 +60,7 @@ const reset = (req, res) => {
         } else res.send('email not found')
     })
 }
+
 
 
 
