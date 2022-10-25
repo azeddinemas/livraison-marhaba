@@ -27,20 +27,16 @@ const register = (req, res) => {
 
 
 const auth = (req, res) => {
-    const { body } = req
+    const { body } = req;
     User.findOne({ email: body.email }).then((data) => {
         if (data) {
-            if (data.confirmed == true) {
-                bcrypt.compare(body.password, data.password)
-                    .then((e) => {
-                        if (e) {
-                            const token = jwt.sign({ data }, process.env.SECRET)
-                            ls('token', token)
-                            res.send(body)
-                        } else { res.send('password ralat') }
-                    })
-            } else res.send('confirmer votre email')
-        } else { res.send('email ralat') }
+            bcrypt.compare(body.password, data.password).then((elemen) => {
+                if (elemen) {
+                    const token = jwt.sign({ data }, process.env.SECRET)
+                    res.json({ msg: token })
+                } else res.send('password incorrect')
+            })
+        } else res.send('name incorrect')
     })
 }
 
