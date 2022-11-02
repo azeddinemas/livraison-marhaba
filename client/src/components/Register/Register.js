@@ -42,7 +42,7 @@ const Register = () => {
                 </form>
             </div>
             <div className="card-footer">
-                <p>Have already an account?<Link to="../Login/Login.js"> Login here</Link></p>
+                <p>Have already an account?<Link to="/login"> Login here</Link></p>
             </div>
         </section>
     </main>
