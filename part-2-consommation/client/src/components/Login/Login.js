@@ -1,16 +1,19 @@
 import {Link} from 'react-router-dom';
+import Navbar from '../NavBar/Navbar';
 import './Login.css';
 
 const Login = () => {
     // const [formData,setFormData] = useState(second)
   return (
     <>
-       <div className="container mt-5">
+    <Navbar/>
+    <div className="container mt-5">
         <div className="card mx-auto">
             <div className="card-header">
                 <h1>marhaba</h1>
             </div>
-            <form method="post" action="" className="card-body">
+            <form method="post" className="card-body">
+                <h2 className="text-center mb-4">Log In</h2>
                 <div className="mb-3">
                     <label  className="form-label">Email address</label>
                     <input type="email" className="form-control"/>
@@ -25,9 +28,9 @@ const Login = () => {
                 </div>
                 <button type="submit" className="btn">Submit</button>
             </form>
-            <div className="card-footer">
-                <Link to="/Register">Register</Link><br/>
-                
+            <div className="card-footer d-flex justify-content-between p-3">
+                <Link to="/Register">Register</Link>
+                <br/>               
                 <Link to="">forget password</Link>
             </div>
         </div>
@@ -36,4 +39,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default Login 

@@ -1,22 +1,24 @@
 import React, {usestate} from 'react';
 import "./Register.css";
 import {Link} from 'react-router-dom';
-import axios from 'axios';
+// import axios from 'axios';
+import Navbar from '../NavBar/Navbar';
 
 
 const Register = () => {
-    const [user, setUser] = useState({
-        name:"",
-        email:"",
-        password:""
-    })
-    const hadleChange = e =>{
-        const {name,value}= e.target
-        setUser({...user,[name]:value})
-    }
+    // const [user, setUser] = useState({
+    //     name:"",
+    //     email:"",
+    //     password:""
+    // })
+    // const hadleChange = e =>{
+    //     const {name,value}= e.target
+    //     setUser({...user,[name]:value})
+    // }
   return (
     <>
-    <main className="container mt-5">
+    <Navbar/>
+    <main className="container mt-4">
         <section className="card mx-auto" id='section'>
             <div className="card-header">
                 <h1>marhaba</h1>
