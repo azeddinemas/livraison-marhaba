@@ -17,15 +17,18 @@ const User = new mongoose.Schema({
         required: true
     },
     role: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'role',
-        required: true
+        // type: mongoose.Schema.Types.ObjectId,
+        // ref: 'role',
+        type : String,
+        default : 'client'
     },
     confirmed: {
         type: Boolean,
         default: false
     }
 
+},{
+    timestamps : true
 })
 
 const user = mongoose.model('user', User)

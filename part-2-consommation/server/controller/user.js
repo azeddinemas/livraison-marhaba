@@ -16,12 +16,12 @@ const register = (req, res) => {
             bcrypt.hash(body.password, 10).then((e) => {
                 if (e) {
                     body.password = e
-                    User.create({...body }).then(() => {
+                    User.create({...body}).then(() => {
                         res.send(body)
                     }).catch((err) => { res.send('not created' + '' + err) })
                 }
             })
-        } else { res.send('email deja kain') }
+        } else { return res.status(401).send("this email already exist") }
     })
 }
 
@@ -30,13 +30,15 @@ const auth = (req, res) => {
     const { body } = req;
     User.findOne({ email: body.email }).then((data) => {
         if (data) {
-            bcrypt.compare(body.password, data.password).then((elemen) => {
-                if (elemen) {
-                    const token = jwt.sign({ data }, process.env.SECRET)
-                    res.json({ msg: token })
-                } else res.send('password incorrect')
-            })
-        } else res.send('name incorrect')
+            if (data.confirmed == true) {
+                bcrypt.compare(body.password, data.password).then((elemen) => {
+                    if (elemen) {
+                        const token = jwt.sign({ data }, process.env.SECRET)
+                        res.json({ msg: token })
+                    } else return res.send('password incorrect')
+                })
+            }else return res.send('your email not confirmed')
+        } else return res.send('email incorrect')
     })
 }
 

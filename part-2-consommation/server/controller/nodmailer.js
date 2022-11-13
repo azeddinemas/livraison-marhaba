@@ -7,7 +7,7 @@ const user = require('../models/user')
 const main = () => {
     const email = ls('email')
     const emt = jwt.sign({ email }, process.env.SECRET)
-    const link = "http://localhost:3000/api/auth/confirmation/" + emt
+    const link = "http://localhost:7000/api/auth/confirmation/" + emt
     let transporter = nodemailer.createTransport({
         host: 'smtp.gmail.com',
         port: 465,
@@ -28,14 +28,14 @@ const main = () => {
     transporter.sendMail(info)
 }
 
-function conform(req, res) {
+function confirm(req, res) {
     const token = req.params.token
     const eml = jwt.verify(token, process.env.SECRET)
-    user.findOneAndUpdate({ email: eml.email }, { confirmed: true }).then((req, res) => {
-        console.log('confirmed')
+    user.findOneAndUpdate({ email: eml.email }, { confirmed: true }).then(() => {
+        res.send('confirmed')
     }).catch(() => {
         console.log('not confirmed')
     })
 }
 
-module.exports = { main, conform }
+module.exports = { main, confirm }
