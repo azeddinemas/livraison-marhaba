@@ -17,16 +17,16 @@ const register = (req, res) => {
                 if (e) {
                     body.password = e
                     User.create({...body}).then(() => {
-                        res.send(body)
+                        res.status(200).send('created success')
                     }).catch((err) => { res.send('not created' + '' + err) })
-                }
+                }else return res.status(401).send('not hashed')
             })
         } else { return res.status(401).send("this email already exist") }
     })
 }
 
 
-const auth = (req, res) => {
+const login = (req, res) => {
     const { body } = req;
     User.findOne({ email: body.email }).then((data) => {
         if (data) {
@@ -34,32 +34,32 @@ const auth = (req, res) => {
                 bcrypt.compare(body.password, data.password).then((elemen) => {
                     if (elemen) {
                         const token = jwt.sign({ data }, process.env.SECRET)
-                        res.json({ msg: token })
-                    } else return res.send('password incorrect')
+                        return res.send('login success')
+                    } else return res.status(401).send('password incorrect')
                 })
-            }else return res.send('your email not confirmed')
-        } else return res.send('email incorrect')
+            }else return res.status(401).send('your email not confirmed')
+        } else return res.status(401).send('email incorrect')
+    }).catch((error)=>{
+        return res.status(401).send(error)
     })
 }
 
 const reset = (req, res) => {
     const { body } = req;
     User.findOne({ email: body.email }).then((data) => {
-        if (data) {
             bcrypt.compare(body.password, data.password).then((e) => {
                 if (e) {
-                    bcrypt.hash(body.newpassword, 10).then((newpass) => {
+                    bcrypt.hash(body.newPassword, 10).then((newpass) => {
                         User.updateOne({ email: body.email }, { password: newpass }).then(() => {
                             res.send('update password success')
                         })
                     })
-                } else res.send('password incorrect')
+                } else res.status(401).send('password incorrect')
             })
-        } else res.send('email not found')
+    }).catch(()=>{
+        res.status(401).send('email not found')
     })
 }
 
 
-
-
-module.exports = { register, auth, reset }
+module.exports = { register, login, reset }
