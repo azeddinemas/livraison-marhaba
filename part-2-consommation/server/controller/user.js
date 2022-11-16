@@ -1,5 +1,4 @@
 const User = require('../models/user')
-const role = require('../models/role')
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken')
 const ls = require('local-storage')
@@ -16,9 +15,9 @@ const register = (req, res) => {
             bcrypt.hash(body.password, 10).then((e) => {
                 if (e) {
                     body.password = e
-                    User.create({...body}).then(() => {
+                    User.create({...body, role: 'client'}).then(() => {
                         res.status(200).send('created success')
-                    }).catch((err) => { res.send('not created' + '' + err) })
+                    }).catch(() => { res.status(401).send('not created') })
                 }else return res.status(401).send('not hashed')
             })
         } else { return res.status(401).send("this email already exist") }
@@ -62,4 +61,22 @@ const reset = (req, res) => {
 }
 
 
-module.exports = { register, login, reset }
+const addLivreur = (req, res) => {
+    const { body } = req;
+    User.findOne({ email: body.email }).then((data) => {
+        if (!data) {
+            ls('email', body.email)
+            bcrypt.hash(body.password, 10).then((e) => {
+                if (e) {
+                    body.password = e
+                    User.create({...body, role: 'livreur'}).then(() => {
+                        res.send('created success')
+                    }).catch((err) => { res.status(401).send('not created') })
+                }else res.status(401).send('not hashed')
+            })
+        } else { res.status(401).send("this email already exist") }
+    })
+}
+
+
+module.exports = { register, login, reset,addLivreur}

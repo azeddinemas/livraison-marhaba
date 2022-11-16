@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React,{useState} from 'react'
 import { Link } from 'react-router-dom';
+import { ToastContainer,toast } from 'react-toastify';
 
 const Forget = () => {
   const [forget, setForget] = useState({
@@ -13,11 +14,14 @@ const Forget = () => {
   
   const onSubmit =(e)=>{
     e.preventDefault()
-    axios.post('http://localhost:7000/api/auth/forget/:token',{...forget}).then((e)=>{
-      console.log(e)
-    }).catch((error)=>{
-      console.log(error+' '+'hiii')
-    })
+    if (forget.email !== '') {
+      axios.post('http://localhost:7000/api/auth/forget',{...forget}).then((e)=>{
+        toast.success(e.data)
+      }).catch(error=>{
+        toast.warning(error.response.data)
+      })
+    }else toast.warning('please choose a email.')
+   
   }
 
   return (
@@ -39,6 +43,7 @@ const Forget = () => {
                 <br/>               
             </div>
         </div>
+        <ToastContainer/>
     </div>
   )
 }

@@ -30,7 +30,7 @@ const Register = () => {
                             if (formData.password === formData.password2) {
                                 axios.post('http://localhost:7000/api/auth/register',{...formData}).then((data)=>{
                                     // toast.success(data.data)
-                                    navigate('/login',{regested : data.data}) 
+                                    navigate('/login',{state : data.data}) 
                                 }).catch(erro=>{
                                     toast.warning(erro.response.data)
                                 })

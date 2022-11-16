@@ -1,11 +1,18 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import {Link} from 'react-router-dom';
 import axios from "axios";
 import {ToastContainer,toast} from 'react-toastify'
+import { useLocation } from 'react-router';
 import './Login.css';
 
 
-const Login = ({route}) => {
+const Login = () => {
+    const location = useLocation() 
+    useEffect(() => {
+        toast.success(location.state)
+    },[])
+    
+    
     const [data, setData] = useState({
         email : '',
         password : ''
@@ -19,7 +26,6 @@ const Login = ({route}) => {
         if (data.email.trim()!=='') {
             if (data.password.trim() !=='') {
                 axios.post('http://localhost:7000/api/auth/login',{...data}).then((dataUser)=>{
-                    // // navigate('/login') 
                     toast.success(dataUser.data)
                 }).catch(erro=>{
                     toast.warning(erro.response.data)

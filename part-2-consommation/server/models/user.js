@@ -19,8 +19,7 @@ const User = new mongoose.Schema({
     role: {
         // type: mongoose.Schema.Types.ObjectId,
         // ref: 'role',
-        type : String,
-        default : 'client'
+        type : String
     },
     confirmed: {
         type: Boolean,
