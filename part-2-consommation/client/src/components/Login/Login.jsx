@@ -7,9 +7,10 @@ import './Login.css';
 
 
 const Login = () => {
-    const location = useLocation() 
+    const location = useLocation() ;
+    const stat = location.state
     useEffect(() => {
-        toast.success(location.state)
+        toast.success(stat)
     },[])
     
     
@@ -25,7 +26,7 @@ const Login = () => {
         e.preventDefault();
         if (data.email.trim()!=='') {
             if (data.password.trim() !=='') {
-                axios.post('http://localhost:7000/api/auth/login',{...data}).then((dataUser)=>{
+                axios.post('http://localhost:7000/api/auth/login',data).then((dataUser)=>{
                     toast.success(dataUser.data)
                 }).catch(erro=>{
                     toast.warning(erro.response.data)

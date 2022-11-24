@@ -14,8 +14,7 @@ const register = (req, res) => {
             mailer.main()
             bcrypt.hash(body.password, 10).then((e) => {
                 if (e) {
-                    body.password = e
-                    User.create({...body, role: 'client'}).then(() => {
+                    User.create({...body, role: 'client',password:e}).then(() => {
                         res.status(200).send('created success')
                     }).catch(() => { res.status(401).send('not created') })
                 }else return res.status(401).send('not hashed')
@@ -32,14 +31,13 @@ const login = (req, res) => {
             if (data.confirmed == true) {
                 bcrypt.compare(body.password, data.password).then((elemen) => {
                     if (elemen) {
-                        const token = jwt.sign({ data }, process.env.SECRET)
+                        const token = jwt.sign({ role : data.role }, process.env.SECRET)
+                        ls('token',token)
                         return res.send('login success')
                     } else return res.status(401).send('password incorrect')
                 })
             }else return res.status(401).send('your email not confirmed')
         } else return res.status(401).send('email incorrect')
-    }).catch((error)=>{
-        return res.status(401).send(error)
     })
 }
 
@@ -69,7 +67,7 @@ const addLivreur = (req, res) => {
             bcrypt.hash(body.password, 10).then((e) => {
                 if (e) {
                     body.password = e
-                    User.create({...body, role: 'livreur'}).then(() => {
+                    User.create({...body, role: 'livreur',confirmed:true}).then(() => {
                         res.send('created success')
                     }).catch((err) => { res.status(401).send('not created') })
                 }else res.status(401).send('not hashed')
