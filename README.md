@@ -6,5 +6,7 @@
 
 Étape 3 : Installer Ubuntu par Microsoft Store.
 
-# create un docker file
+# Créer un Dockerfile
+
+docker network create 
 
