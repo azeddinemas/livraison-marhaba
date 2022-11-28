@@ -2,6 +2,9 @@
 
 Étape 1 : Installer Docker sur Windows.
 
-Étape 2 : Installer Wsl 2 par Microsoft Store.
+Étape 2 : Installer Wsl 2.
 
 Étape 3 : Installer Ubuntu par Microsoft Store.
+
+# create un docker file
+
