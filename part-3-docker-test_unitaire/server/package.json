@@ -2,11 +2,11 @@
     "name": "livraison-marhaba",
     "version": "1.0.0",
     "description": "",
-    "main": "server.js",
+    "main": "index.js",
     "scripts": {
-        "test": "jest",
         "preinstall": "npm i nodemon -g",
-        "start": "nodemon server.js"
+        "test": "jest",
+        "start": "nodemon index.js"
     },
     "keywords": [],
     "author": "",

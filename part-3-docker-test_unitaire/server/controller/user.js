@@ -16,10 +16,10 @@ const register = (req, res) => {
                 if (e) {
                     User.create({...body, role: 'client',password:e}).then(() => {
                         res.status(200).send('created success')
-                    }).catch(() => { res.status(401).send('not created') })
-                }else return res.status(401).send('not hashed')
+                    }).catch(() => { res.status(400).send('not created') })
+                }else return res.status(400).send('not hashed')
             })
-        } else { return res.status(401).send("this email already exist") }
+        } else { return res.status(400).send("this email already exist") }
     })
 }
 
@@ -34,10 +34,10 @@ const login = (req, res) => {
                         const token = jwt.sign({ role : data.role }, process.env.SECRET)
                         ls('token',token)
                         return res.send(data.role)
-                    } else return res.status(401).send('password incorrect')
+                    } else return res.status(400).send('password incorrect')
                 })
-            }else return res.status(401).send('your email not confirmed')
-        } else return res.status(401).send('email incorrect')
+            }else return res.status(400).send('your email not confirmed')
+        } else return res.status(400).send('email incorrect')
     })
 }
 

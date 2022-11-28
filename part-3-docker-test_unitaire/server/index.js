@@ -11,4 +11,9 @@ app.use(express.urlencoded({ extended: true }))
 app.use('/api/auth', authRoute);
 
 
+
+app.listen(5000, console.log("port is 5000"))
+
+
+
 module.exports = app
