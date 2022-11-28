@@ -36,11 +36,11 @@
 ## 1 -  Installer la bibliothèque jest et supertest
     npm i --save-dev jest supertest
     
-## 2 - créer un fichie test.test.js
+## 2 - Créer un fichie test.test.js
     const supertest = require('supertest');
     const app = require('./index');
     
-## 3 creation d'une function describe de login et inscription
+## 3 Creation deux function describe de login et register
 
     describe('register geven email && password', () => { 
         test('email already existe', async () => { 
@@ -92,7 +92,7 @@
 
     })
  
-## 4 - execution de test
+## 4 - Execution de test
     npm test
 
 
