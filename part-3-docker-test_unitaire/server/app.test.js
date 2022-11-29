@@ -5,7 +5,7 @@ const app = require('./index');
 describe('register geven email && password', () => { 
     test('email already existe', async () => { 
         const body = {
-            email : "duxu@mailinator.com",
+            email : "sina@mailinator.com",
         }
         const response = await supertest(app).post("/api/auth/register").send(body)
         expect(response.text).toBe('this email already exist')
@@ -14,7 +14,7 @@ describe('register geven email && password', () => {
         const body = {
             name : 'sara',
             prenom : 'msl',
-            email : '66b35d846@inbxmail.life',
+            email : '66b35d84@inbmail.life',
             password : '1111',
             role : 'client',
             confirmed : true
@@ -43,8 +43,8 @@ describe('login given email and password', () => {
 
     test('password incorrect', async () => { 
         const body = {
-            email : '66b35d8746@inboxmail.life',
-            password : '11111'
+            email : 'sina@mailinator.com',
+            password : '111'
         }
         const response = await supertest(app).post("/api/auth/login").send(body)
         expect(response.text).toBe('password incorrect')

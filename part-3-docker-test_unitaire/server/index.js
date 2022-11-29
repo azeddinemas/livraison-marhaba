@@ -12,7 +12,7 @@ app.use('/api/auth', authRoute);
 
 
 
-app.listen(5000, console.log("port is 5000"))
+app.listen(7000, console.log("port is 7000"))
 
 
 
